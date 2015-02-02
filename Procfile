@@ -1,1 +1,1 @@
-web: bin/hubot -a gitter -n hubot
+web: bin/hubot -a gitter2 -n hubot
