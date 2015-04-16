@@ -36,6 +36,7 @@ module.exports = function(robot) {
 
   robot.respond(/stop checking members/i, function(msg){
     clearInterval(meetupCheckInterval);
+    meetupCheckInterval = undefined;
     msg.send("I'll no longer check for new members");
   });
 
