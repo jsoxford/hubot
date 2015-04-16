@@ -19,6 +19,7 @@ module.exports = function(robot) {
   robot.respond(/keep (an eye on|track of) member(s| count)/i, function(msg){
     if(meetupCheckInterval){
       msg.send("Already on it!");
+      return;
     }else{
       msg.send("Will do!");
     }
