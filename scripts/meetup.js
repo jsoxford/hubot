@@ -9,7 +9,6 @@
 //
 // Commands:
 //   hubot when is the next event ?  - returns the next upcoming meetup event
-//   hubot when is the next meetup ?  - returns the next upcoming meetup event
 
 module.exports = function(robot) {
     robot.respond(/when(s|'s| is) the next (meetup|event|jsoxford)\s?\?/i, function(msg){
@@ -19,6 +18,8 @@ module.exports = function(robot) {
           var upcomingEvents = JSON.parse(body).results;
           if(upcomingEvents && upcomingEvents.length > 0){
             msg.send(upcomingEvents[0].event_url);
+          }else{
+            msg.send("No upcoming events planned");
           }
         });
     });
