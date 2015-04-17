@@ -28,7 +28,7 @@ module.exports = function(robot) {
     });
   }, 3600000);
 
-  robot.respond(/how many members do we have\?/, function(msg){
+  robot.respond(/how many members do we have\?/i, function(msg){
     msg.send("We have "+ robot.brain.get("membercount") +" awesome members!");
   });
 
