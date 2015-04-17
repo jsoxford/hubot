@@ -17,19 +17,29 @@ module.exports = function(robot) {
   var meetupCheckInterval, result;
   var room = "jsoxford/jsoxford.github.com";
 
-  meetupCheckInterval = setInterval(function(){
+  function fetchMemberCount(callback){
+    var memberCount;
     robot.http(membersQuery).get()(function(err, res, body){
       if(err) console.log(err);
       result = JSON.parse(body).results;
-      if(result && result.length !== robot.brain.get("membercount")){
-        robot.send(room, "We now have " + result.length + " JSOxforders!");
-        robot.brain.set("membercount",result.length);
+      callback(result.length);
+      }
+    });
+  }
+
+  meetupCheckInterval = setInterval(function(){
+    fetchMemberCount(function(count){
+      if(count && count !== robot.brain.get("membercount")){
+        robot.send(room, "We now have " + count + " JSOxforders!");
+        robot.brain.set("membercount",count);
       }
     });
   }, 3600000);
 
   robot.respond(/how many members do we have\?/i, function(msg){
-    msg.send("We have "+ robot.brain.get("membercount") +" awesome members!");
+    fetchMemberCount(function(count){
+      msg.send("We have "+ count +" awesome members!");
+    })
   });
 
 
