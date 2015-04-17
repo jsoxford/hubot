@@ -1,1 +1,1 @@
-web: bin/hubot -a gitter2 -n oxbot
+web: bin/hubot -a gitter2 -n @jsoxbot
