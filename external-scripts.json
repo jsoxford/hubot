@@ -1,4 +1,5 @@
 [
+  "hubot-business-cat",
   "hubot-diagnostics",
   "hubot-help",
   "hubot-heroku-keepalive",
@@ -9,5 +10,6 @@
   "hubot-redis-brain",
   "hubot-rules",
   "hubot-shipit",
+  "hubot-thank-you",
   "hubot-youtube"
 ]
