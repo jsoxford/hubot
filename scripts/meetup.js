@@ -16,7 +16,7 @@ module.exports = function(robot) {
   var upcomingEventsQuery = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=17778422&only=time%2Cevent_url%2Cname%2Cdescription%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=20&fields=&order=time&desc=false&status=upcoming&sig_id=153356042&sig=84e9ac6ce37bdb3c00e4f82fe5a7ce798865fbe4";
   var meetupCheckInterval, result;
   var room = "jsoxford/jsoxford.github.com";
-  var adjectives = ["awesome","amazing","JStastic","super","cool","incredible"];
+  var adjectives = ["awesome","amazing","JS-tastic","super","cool","incredible"];
 
   function fetchMemberCount(callback){
     var memberCount;
