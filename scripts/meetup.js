@@ -56,4 +56,11 @@ module.exports = function(robot) {
       }
     });
   });
+  
+  // debugging
+  robot.hear(/ping room (.+)/i, function(msg){
+    var room = msg.match[1];
+    msg.send("pinging room (" + room + ")");
+    robot.send(room, "PING");
+  })
 }
