@@ -32,7 +32,7 @@ module.exports = function(robot) {
   meetupCheckInterval = setInterval(function(){
     fetchMemberCount(function(count){
       if(count && count !== robot.brain.get("membercount")){
-        robot.send(room, "We now have " + count + " JSOxforders!");
+        robot.messageRoom(room, "We now have " + count + " JSOxforders!");
         robot.brain.set("membercount",count);
       }
     });
@@ -43,7 +43,6 @@ module.exports = function(robot) {
       msg.send("We have "+ count +" "+ msg.random(adjectives)+" members!");
     })
   });
-
 
   robot.hear(/when(s|'s| is) the next (meetup|event|jsoxford)\s?\?/i, function(msg){
     robot.http(upcomingEventsQuery).get()(function(err, res, body){
@@ -56,11 +55,4 @@ module.exports = function(robot) {
       }
     });
   });
-  
-  // debugging
-  robot.hear(/ping room (.+)/i, function(msg){
-    var room = msg.match[1];
-    msg.send("pinging room (" + room + ")");
-    robot.messageRoom(room, "PING");
-  })
 }
