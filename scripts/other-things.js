@@ -19,7 +19,7 @@ module.exports = function(robot){
 
   interval = setInterval(function(){
     robot.http(issuesURL).get()(function(err, res, body){
-      if(err) return console.log('Couldn't check github issues: ' + err);
+      if(err) return console.log('Couldn\'t check github issues: ' + err);
       result = JSON.parse(body);
       if(result){
         result.forEach(function(issue){
