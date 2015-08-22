@@ -19,11 +19,11 @@ module.exports = function(robot){
 
   interval = setInterval(function(){
     robot.http(issuesURL).get()(function(err, res, body){
-        if(err) console.log(err);
+        if(err) return console.log('Couldn\'t check github issues: ' + err);
         result = JSON.parse(body);
         if(result){
           result.forEach(function(issue){
-            var created = new Date(issue.created_at);
+            var created = new Date(issue.updated_at);
             if(created > robot.brain.get("lastcheck")){
               var message = "We're looking for an awesome person to speak about " + issue.title + " is that you? Check out #" + issue.number;
               robot.messageRoom(room, message);
