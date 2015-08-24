@@ -23,7 +23,7 @@ module.exports = function(robot){
       result = JSON.parse(body);
       if(result){
         result.forEach(function(issue){
-          var created = new Date(issue.updated_at);
+          var created = new Date(issue.created_at);
           if(created > robot.brain.get("lastcheck")){
             var message = "Check out this awesome thing #" + issue.number + " (" + issue.title + ")";
             robot.messageRoom(room, message);
