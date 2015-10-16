@@ -31,7 +31,7 @@ module.exports = function(robot) {
 
   meetupCheckInterval = setInterval(function(){
     fetchMemberCount(function(count){
-      if(count % 5 == 0 && count !== robot.brain.get("membercount")){
+      if(count % 10 == 0 && count !== robot.brain.get("membercount")){
         robot.messageRoom(room, "We now have " + count + " JSOxforders!");
         robot.brain.set("membercount",count);
       }
