@@ -1,1 +1,1 @@
-web: bin/hubot -a gitter2 -n @dobot
+web: bin/hubot -a slack -n @dobot
