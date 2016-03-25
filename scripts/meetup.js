@@ -50,6 +50,10 @@ module.exports = function(robot) {
       }
     }
 
+    console.log('Room: ' + room);
+    console.log('Community: ' + community);
+    console.log('MeetupURL: ' + meetupURL);
+
     robot.http(meetupURL).get()(function(err, res, body){
       if(err) console.log(err);
       result = JSON.parse(body).results;
