@@ -19,7 +19,7 @@ module.exports = function(robot) {
   var rubyEvents = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_urlname=Oxford-Ruby-Users-Group-OxRUG&only=time%2Cevent_url%2Cname%2Cdescription%2Cyes_rsvp_count%2Crsvp_limit&photo-host=public&page=20&fields=&order=time&status=upcoming&desc=false&sig_id=153356042&sig=28283c85246a091d9cc0dff99aac1c1bbd2941a5";
   var result;
 
-  robot.hear(/when(s|'s| is) the next (.* )(meetup|event)\s?\?/i, function(msg){
+  robot.hear(/when(s|'s| is) the next (.*)(meetup|event)\s?\?/i, function(msg){
     var room = msg.message.room;
     var community = msg.match[1];
     var meetupURL = multipleEvents;
