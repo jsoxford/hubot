@@ -1,1 +1,1 @@
-web: bin/hubot -a slack -n @jsoxbot
+web: bin/hubot -a slack -n @dobot
