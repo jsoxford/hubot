@@ -21,31 +21,31 @@ module.exports = function(robot) {
 
   robot.hear(/when(s|'s| is) the next (.*)(meetup|event)\s?\?/i, function(msg){
     var room = msg.message.room;
-    var community = msg.match[1];
+    var community = msg.match[2];
     var meetupURL = multipleEvents;
 
     if(!community) {
-      if(room.toLowerCase().indexOf('jsox')) {
+      if(room.toLowerCase().indexOf('jsox') >= 0) {
         meetupURL = jsOxfordEvents;
-      } else if(room.toLowerCase().indexOf('ux')) {
+      } else if(room.toLowerCase().indexOf('ux') >= 0) {
         meetupURL = uxOxfordEvents;
-      } else if(room.toLowerCase().indexOf('php')) {
+      } else if(room.toLowerCase().indexOf('php') >= 0) {
         meetupURL = phpOxfordEvents;
-      } else if(room.toLowerCase().indexOf('docker')) {
+      } else if(room.toLowerCase().indexOf('docker') >= 0) {
         meetupURL = dockerEvents;
-      } else if(room.toLowerCase().indexOf('ruby')) {
+      } else if(room.toLowerCase().indexOf('ruby') >= 0) {
         meetupURL = rubyEvents;
       }
     } else {
-      if(community.toLowerCase().indexOf('jsox')) {
+      if(community.toLowerCase().indexOf('jsox') >= 0) {
         meetupURL = jsOxfordEvents;
-      } else if(community.toLowerCase().indexOf('ux')) {
+      } else if(community.toLowerCase().indexOf('ux') >= 0) {
         meetupURL = uxOxfordEvents;
-      } else if(community.toLowerCase().indexOf('php')) {
+      } else if(community.toLowerCase().indexOf('php') >= 0) {
         meetupURL = phpOxfordEvents;
-      } else if(community.toLowerCase().indexOf('docker')) {
+      } else if(community.toLowerCase().indexOf('docker') >= 0) {
         meetupURL = dockerEvents;
-      } else if(community.toLowerCase().indexOf('ruby')) {
+      } else if(community.toLowerCase().indexOf('ruby') >= 0) {
         meetupURL = rubyEvents;
       }
     }
