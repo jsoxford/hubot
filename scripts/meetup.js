@@ -20,44 +20,32 @@ module.exports = function(robot) {
   var pythonEvents = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_urlname=oxfordpython&only=time%2Cevent_url%2Cname%2Cdescription%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=20&fields=&order=time&status=upcoming&desc=false&sig_id=153356042&sig=f2b06efd17bf9cafe4a6e82f35ea0a28639d06f2";
   var result;
 
-  robot.hear(/when(s|'s| is) the next (.*)(meetup|event)\s?\?/i, function(msg){
+  robot.hear(/(?:when|what)(?:s|'s| is) the next (\w*)\s?(?:meet|event|talk|party|hack|shindig|gathering)/i, function(msg){
     var room = msg.message.room;
-    var community = msg.match[2];
+    var community = msg.match[1].toLowerCase();
     var meetupURL = multipleEvents;
-
-    if(!community) {
-      if(room.toLowerCase().indexOf('jsox') >= 0) {
-        meetupURL = jsOxfordEvents;
-      } else if(room.toLowerCase().indexOf('ux') >= 0) {
-        meetupURL = uxOxfordEvents;
-      } else if(room.toLowerCase().indexOf('php') >= 0) {
-        meetupURL = phpOxfordEvents;
-      } else if(room.toLowerCase().indexOf('docker') >= 0) {
-        meetupURL = dockerEvents;
-      } else if(room.toLowerCase().indexOf('ruby') >= 0) {
-        meetupURL = rubyEvents;
-      } else if(room.toLowerCase().indexOf('python') >= 0) {
-        meetupURL = pythonEvents;
-      }
-    } else {
-      if(community.toLowerCase().indexOf('jsox') >= 0) {
-        meetupURL = jsOxfordEvents;
-      } else if(community.toLowerCase().indexOf('ux') >= 0) {
-        meetupURL = uxOxfordEvents;
-      } else if(community.toLowerCase().indexOf('php') >= 0) {
-        meetupURL = phpOxfordEvents;
-      } else if(community.toLowerCase().indexOf('docker') >= 0) {
-        meetupURL = dockerEvents;
-      } else if(community.toLowerCase().indexOf('ruby') >= 0) {
-        meetupURL = rubyEvents;
-      } else if(community.toLowerCase().indexOf('python') >= 0) {
-        meetupURL = pythonEvents;
-      }
-    }
 
     console.log('Room: ' + room);
     console.log('Community: ' + community);
     console.log('MeetupURL: ' + meetupURL);
+
+    if (community.length === 0) {
+      community = room;
+    }
+
+    if(community.indexOf('js') >= 0) {
+      meetupURL = jsOxfordEvents;
+    } else if(community.indexOf('ux') >= 0) {
+      meetupURL = uxOxfordEvents;
+    } else if(community.indexOf('php') >= 0) {
+      meetupURL = phpOxfordEvents;
+    } else if(community.indexOf('docker') >= 0) {
+      meetupURL = dockerEvents;
+    } else if(community.indexOf('ruby') >= 0 || community.indexOf('rb') >= 0) {
+      meetupURL = rubyEvents;
+    } else if(community.indexOf('py') >= 0) {
+      meetupURL = pythonEvents;
+    }
 
     robot.http(meetupURL).get()(function(err, res, body){
       if(err) console.log(err);
