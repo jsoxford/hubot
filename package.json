@@ -21,7 +21,8 @@
     "hubot-shipit": "^0.1.1",
     "hubot-slack": "^3.4.1",
     "hubot-thank-you": "git://github.com/hubot-scripts/hubot-thank-you",
-    "hubot-youtube": "^0.1.2"
+    "hubot-youtube": "^0.1.2",
+    "moment-timezone": "^0.5.3"
   },
   "engines": {
     "node": "0.10.x"
