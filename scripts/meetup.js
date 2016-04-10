@@ -75,11 +75,11 @@ function responseForEvent(event, knownGroup) {
   if (knownGroup) {
     message = 'The next ' + groupName + ' meetup is ';
   } else {
-    message = 'The next meetup is by ' + groupName + ', ';
+    message = 'The next meetup is by *' + groupName + '*, ';
   }
-  message += '"' + eventName + '" on the ' + eventTime + '. ';
+  message += '"*' + eventName + '*" on the *' + eventTime + '*. ';
   if (event.venue && event.venue.name) {
-    message += 'It\'s at ' + event.venue.name + '. ';
+    message += 'It\'s at *' + event.venue.name + '*. ';
   }
   if (event.yes_rsvp_count) {
     if (event.rsvp_limit) {
@@ -88,6 +88,6 @@ function responseForEvent(event, knownGroup) {
       message += event.yes_rsvp_count + ' people are going so far. ';
     }
   }
-  message += 'More info: ' + eventUrl;
+  message += '\nMore info: ' + eventUrl;
   return message;
 }
