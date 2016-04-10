@@ -25,7 +25,7 @@ module.exports = function(robot) {
   var result;
 
   function phraseToUrl(phrase) {
-    if (phrase.indexOf('js') >= 0) {
+    if (phrase.indexOf('js') >= 0 || phrase.indexOf('javascript') >= 0) {
       return jsOxfordEvents;
     } else if (phrase.indexOf('ux') >= 0) {
       return uxOxfordEvents;
