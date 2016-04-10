@@ -44,7 +44,7 @@ module.exports = function(robot) {
     }
   }
 
-  robot.hear(/(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, function(msg) {
+  robot.hear(/^(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, function(msg) {
     var room = msg.message.room.toLowerCase();
     var community = msg.match[1].toLowerCase();
     var meetupURL = phraseToUrl(community) || phraseToUrl(room) || multipleEvents;
