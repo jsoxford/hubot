@@ -1,0 +1,42 @@
+[
+  {
+    "name": "JS Oxford",
+    "id": "17778422",
+    "aliases": ["javascript", "js"]
+  },
+  {
+    "name": "UX Oxford",
+    "id": "12345482",
+    "aliases": ["ux"]
+  },
+  {
+    "name": "PHP Oxford",
+    "id": "18829161",
+    "aliases": ["php"]
+  },
+  {
+    "name": "Docker Oxford",
+    "id": "18789928",
+    "aliases": ["docker"]
+  },
+  {
+    "name": "OxRUG",
+    "id": "18617250",
+    "aliases": ["ruby", "rb", "rug"]
+  },
+  {
+    "name": "Oxford Python",
+    "id": "1722581",
+    "aliases": ["py"]
+  },
+  {
+    "name": "Doxford",
+    "id": "19558444",
+    "aliases": ["dox", "devop"]
+  },
+  {
+    "name": "Optimise Oxford",
+    "id": "18888248",
+    "aliases": ["optim"]
+  }
+]
