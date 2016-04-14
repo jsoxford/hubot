@@ -10,42 +10,27 @@
 // Commands:
 //   when is the next event ?  - returns the next upcoming meetup event
 
-var API_KEY = process.env.MEETUP_API_KEY;
-var groups = require('../meetup-groups.json');
 var moment = require('moment-timezone');
 moment.locale('en-gb');
 
 module.exports = function (robot) {
   var result;
+  var API_KEY = process.env.MEETUP_API_KEY;
+  var groups = require('../meetup-groups.json');
   var allGroupIds = groups.map(function (group) {
     return group.id;
   }).join('%2C');
 
-  function phraseToId(phrase) {
-    for (var i = 0; i < groups.length; i++) {
-      for (var j = 0; j < groups[i].aliases.length; j++) {
-        if (phrase.indexOf(groups[i].aliases[j]) >= 0) {
-          return groups[i].id;
-        }
-      }
-    }
-    return null;
-  }
-
-  function createMeetupUrl(groupIds) {
-    return "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=" + groupIds + "&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
-  }
-
   robot.hear(/^(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, function (msg) {
     var room = msg.message.room.toLowerCase();
     var community = msg.match[1].toLowerCase();
-    var meetupGroupId = phraseToId(community) || phraseToId(room);
+    var meetupGroupId = phraseToId(community, groups) || phraseToId(room, groups);
     var knownGroup = true;
     if (!meetupGroupId) {
       knownGroup = false;
       meetupGroupId = allGroupIds;
     }
-    var meetupURL = createMeetupUrl(meetupGroupId);
+    var meetupURL = createMeetupUrl(meetupGroupId, API_KEY);
     var groupName = '';
     if (knownGroup) {
       groupName = groups.filter(function (group) {
@@ -93,4 +78,19 @@ function responseForEvent(event, knownGroup) {
   }
   message += '\nMore info: ' + eventUrl;
   return message;
+}
+
+function phraseToId(phrase, groups) {
+  for (var i = 0; i < groups.length; i++) {
+    for (var j = 0; j < groups[i].aliases.length; j++) {
+      if (phrase.indexOf(groups[i].aliases[j]) >= 0) {
+        return groups[i].id;
+      }
+    }
+  }
+  return null;
+}
+
+function createMeetupUrl(groupIds, API_KEY) {
+  return "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=" + groupIds + "&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
 }
