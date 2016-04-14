@@ -10,49 +10,48 @@
 // Commands:
 //   when is the next event ?  - returns the next upcoming meetup event
 
+var API_KEY = process.env.MEETUP_API_KEY;
+var groups = require('../meetup-groups.json');
 var moment = require('moment-timezone');
 moment.locale('en-gb');
 
 module.exports = function (robot) {
-  var API_KEY = process.env.MEETUP_API_KEY;
-
-  var multipleEvents = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=1722581%2C17778422%2C19558444%2C12345482%2C18829161%2C18789928%2C18617250%2C18888248&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
-  var jsOxfordEvents = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=17778422&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
-  var uxOxfordEvents = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=12345482&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
-  var phpOxfordEvents = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=18829161&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
-  var dockerEvents = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=18789928&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
-  var rubyEvents = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=18617250&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
-  var pythonEvents = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=1722581&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
-  var doxfordEvents = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=19558444&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
-  var optimiseEvents = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=18888248&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
   var result;
+  var allGroupIds = groups.map(function (group) {
+    return group.id;
+  }).join('%2C');
 
-  function phraseToUrl(phrase) {
-    if (phrase.indexOf('js') >= 0 || phrase.indexOf('javascript') >= 0) {
-      return jsOxfordEvents;
-    } else if (phrase.indexOf('ux') >= 0) {
-      return uxOxfordEvents;
-    } else if (phrase.indexOf('php') >= 0) {
-      return phpOxfordEvents;
-    } else if (phrase.indexOf('docker') >= 0) {
-      return dockerEvents;
-    } else if (phrase.indexOf('ruby') >= 0 || phrase.indexOf('rb') >= 0) {
-      return rubyEvents;
-    } else if (phrase.indexOf('py') >= 0) {
-      return pythonEvents;
-    } else if (phrase.indexOf('dox') >= 0 || phrase.indexOf('devop') >= 0) {
-      return doxfordEvents;
-    } else if (phrase.indexOf('optim') >= 0) {
-      return optimiseEvents;
-    } else {
-      return null;
+  function phraseToId(phrase) {
+    for (var i = 0; i < groups.length; i++) {
+      for (var j = 0; j < groups[i].aliases.length; j++) {
+        if (phrase.indexOf(groups[i].aliases[j]) >= 0) {
+          return groups[i].id;
+        }
+      }
     }
+    return null;
+  }
+
+  function createMeetupUrl(groupIds) {
+    return "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=" + groupIds + "&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
   }
 
   robot.hear(/^(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, function (msg) {
     var room = msg.message.room.toLowerCase();
     var community = msg.match[1].toLowerCase();
-    var meetupURL = phraseToUrl(community) || phraseToUrl(room) || multipleEvents;
+    var meetupGroupId = phraseToId(community) || phraseToId(room);
+    var knownGroup = true;
+    if (!meetupGroupId) {
+      knownGroup = false;
+      meetupGroupId = allGroupIds;
+    }
+    var meetupURL = createMeetupUrl(meetupGroupId);
+    var groupName = '';
+    if (knownGroup) {
+      groupName = groups.filter(function (group) {
+        return group.id === meetupGroupId;
+      })[0].name;
+    }
 
     console.log('Room: ' + room);
     console.log('Community: ' + community);
@@ -62,12 +61,11 @@ module.exports = function (robot) {
       if (err) console.log(err);
       result = JSON.parse(body).results;
       if (result && result.length > 0) {
-        msg.send(responseForEvent(result[0], meetupURL !== multipleEvents));
+        msg.send(responseForEvent(result[0], knownGroup));
       } else {
-        msg.send("No upcoming events planned");
+        msg.send("No upcoming " + groupName + " events planned");
       }
     });
-
   });
 }
 
