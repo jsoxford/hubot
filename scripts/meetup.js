@@ -54,7 +54,7 @@ module.exports = function (robot) {
   }
 
   robot.hear(/^(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, processMessage);
-  robot.respond(/^(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, processMessage);
+  robot.respond(/(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, processMessage);
 }
 
 function responseForEvent(event, knownGroup) {
