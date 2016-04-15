@@ -21,7 +21,7 @@ module.exports = function (robot) {
     return group.id;
   }).join('%2C');
 
-  robot.hear(/^(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, function (msg) {
+  function processMessage(msg) {
     var room = msg.message.room.toLowerCase();
     var community = msg.match[1].toLowerCase();
     var meetupGroupId = phraseToId(community, groups) || phraseToId(room, groups);
@@ -51,7 +51,10 @@ module.exports = function (robot) {
         msg.send("No upcoming " + groupName + " events planned");
       }
     });
-  });
+  }
+
+  robot.hear(/^(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, processMessage);
+  robot.respond(/^(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, processMessage);
 }
 
 function responseForEvent(event, knownGroup) {
