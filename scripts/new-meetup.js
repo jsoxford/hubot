@@ -11,7 +11,13 @@
 //   when is the next event ?  - returns the next upcoming meetup event
 
 module.exports = function(robot) {
-  var meetupURL = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=1722581%2C17778422%2C19558444%2C12345482%2C18829161%2C18789928%2C18617250%2C18888248&only=created%2Ctime%2Cevent_url%2Cname%2Cdescription%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=20&fields=&order=time&status=upcoming&desc=false&sig_id=153356232&sig=2caec369630b125aa3c13c9a259c7a26476a1141";
+  var API_KEY = process.env.MEETUP_API_KEY;
+  var groups = require('../meetup-groups.json');
+  var allGroupIds = groups.map(function(group) {
+    return group.id;
+  }).join('%2C');
+
+  var meetupURL = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=" + allGroupIds + "&only=created%2Ctime%2Cevent_url%2Cname%2Cdescription%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=20&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
   var room = "#events";
   var result;
 
