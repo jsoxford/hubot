@@ -86,7 +86,7 @@ function responseForEvent(event, knownGroup) {
 function phraseToId(phrase, groups) {
   for (var i = 0; i < groups.length; i++) {
     for (var j = 0; j < groups[i].aliases.length; j++) {
-      if (phrase.indexOf(groups[i].aliases[j]) >= 0) {
+      if (phrase.indexOf(groups[i].aliases[j].toLowerCase()) >= 0) {
         return groups[i].id;
       }
     }
