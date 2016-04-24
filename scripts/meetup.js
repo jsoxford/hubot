@@ -35,7 +35,7 @@ module.exports = function (robot) {
     if (knownGroup) {
       groupName = groups.filter(function (group) {
         return group.id === meetupGroupId;
-      })[0].name;
+      })[0].name + ' ';
     }
 
     console.log('Room: ' + room);
@@ -48,7 +48,7 @@ module.exports = function (robot) {
       if (result && result.length > 0) {
         msg.send(responseForEvent(result[0], knownGroup));
       } else {
-        msg.send("No upcoming " + groupName + " events planned");
+        msg.send("No upcoming " + groupName + "events planned");
       }
     });
   }
