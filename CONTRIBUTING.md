@@ -4,7 +4,7 @@ We welcome any ideas, issues and pull requests that you may want to submit to Do
 
 If you have any questions, [come chat with us in #robot](https://digitaloxford.slack.com/messages/robot/).
 
-## Adding your group
+## Adding your Meetup group
 
 One of the common things you may want to do is add your group to Dobot's Meetup integration. You can ask Dobot about the next meetup, and it will respond:
 
