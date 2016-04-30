@@ -8,7 +8,8 @@
 //   None
 //
 // Commands:
-//   when is the next event ?  - returns the next upcoming meetup event
+//   When's the next event? - returns the next upcoming meetup event
+//   When's the next [group] event? - returns the next Meetup event for a given group e.g. "When's the next JSOxford meetup?"
 
 var moment = require('moment-timezone');
 moment.locale('en-gb');
@@ -17,9 +18,7 @@ module.exports = function (robot) {
   var result;
   var API_KEY = process.env.MEETUP_API_KEY;
   var groups = require('../meetup-groups.json');
-  var allGroupIds = groups.map(function (group) {
-    return group.id;
-  }).join('%2C');
+  var allGroupIds = Object.keys(groups).join('%2C');
 
   function processMessage(msg) {
     var room = msg.message.room.toLowerCase();
@@ -33,9 +32,7 @@ module.exports = function (robot) {
     var meetupURL = createMeetupUrl(meetupGroupId, API_KEY);
     var groupName = '';
     if (knownGroup) {
-      groupName = groups.filter(function (group) {
-        return group.id === meetupGroupId;
-      })[0].name + ' ';
+      groupName = groups[meetupGroupId] + ' ';
     }
 
     console.log('Room: ' + room);
@@ -59,7 +56,7 @@ module.exports = function (robot) {
 
 function responseForEvent(event, knownGroup) {
   var eventUrl = event.event_url;
-  var eventTime = moment(event.time).tz('Europe/London').format('Do MMMM [at] h:mma');
+  var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM [at] h:mma');
   var eventName = event.name;
   var groupName = event.group.name;
   var message;
@@ -68,26 +65,26 @@ function responseForEvent(event, knownGroup) {
   } else {
     message = 'The next meetup is by *' + groupName + '*, ';
   }
-  message += '"*' + eventName + '*" on the *' + eventTime + '*. ';
+  message += '"*' + eventName + '*" on *' + eventTime + '*. ';
   if (event.venue && event.venue.name) {
     message += 'It\'s at *' + event.venue.name + '*. ';
   }
   if (event.yes_rsvp_count) {
-    if (event.rsvp_limit) {
+    if (event.rsvp_limit && event.rsvp_limit - event.yes_rsvp_count <= 10) {
       message += 'There are ' + (event.rsvp_limit - event.yes_rsvp_count) + ' places left. ';
-    } else {
-      message += event.yes_rsvp_count + ' people are going so far. ';
     }
   }
-  message += '\nMore info: ' + eventUrl;
+  message += '\n' + eventUrl;
   return message;
 }
 
 function phraseToId(phrase, groups) {
-  for (var i = 0; i < groups.length; i++) {
-    for (var j = 0; j < groups[i].aliases.length; j++) {
-      if (phrase.indexOf(groups[i].aliases[j].toLowerCase()) >= 0) {
-        return groups[i].id;
+  var groupIds = Object.keys(groups);
+  
+  for (var i = 0; i < groupIds.length; i++) {
+    for (var j = 0; j < groups[groupIds[i]].aliases.length; j++) {
+      if (phrase.indexOf(groups[groupIds[i]].aliases[j].toLowerCase()) >= 0) {
+        return groupIds[i];
       }
     }
   }

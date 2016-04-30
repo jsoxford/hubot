@@ -1,14 +1,11 @@
 // Description:
-//   meetup script
+//   Checks every hour for new meetups. Posts in the releveant channel (if it exists) and #events
 //
 // Dependencies:
 //   None
 //
 // Configuration:
 //   None
-//
-// Commands:
-//   when is the next event ?  - returns the next upcoming meetup event
 
 var moment = require('moment-timezone');
 moment.locale('en-gb');
@@ -16,12 +13,10 @@ moment.locale('en-gb');
 module.exports = function(robot) {
   var API_KEY = process.env.MEETUP_API_KEY;
   var groups = require('../meetup-groups.json');
-  var allGroupIds = groups.map(function(group) {
-    return group.id;
-  }).join('%2C');
+  var allGroupIds = Object.keys(groups).join('%2C');
 
   var meetupURL = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=" + allGroupIds + "&only=created%2Ctime%2Cevent_url%2Cname%2Cdescription%2Cyes_rsvp_count%2Crsvp_limit%2Cgroup&photo-host=secure&page=20&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
-  var room = "#events";
+  var eventsRoom = "#events";
   var result;
 
   robot.brain.set("lastcheck",new Date());
@@ -37,7 +32,11 @@ module.exports = function(robot) {
         result.forEach(function(meetup){
           var created = new Date(meetup.created);
           if(created > robot.brain.get("lastcheck")){
-            robot.messageRoom(room, generateAnnouncement(meetup));
+            var announcement = generateAnnouncement(meetup);
+            robot.messageRoom(eventsRoom, announcement);
+            if (groups[meetup.group.id].slack_channel) {
+              robot.messageRoom(groups[meetup.group.id].slack_channel, announcement);
+            }
           }
         });
       }
@@ -49,9 +48,9 @@ module.exports = function(robot) {
 }
 
 function generateAnnouncement(event) {
-  var eventTime = moment(event.time).tz('Europe/London').format('Do MMMM [at] h:mma');
-  var message = ':loudspeaker: New meetup!\n';
-  message += '"' + event.name + '" by ' + event.group.name + ', on the ' + eventTime + '\n';
+  var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM [at] h:mma');
+  var message = ':loudspeaker: New ' + event.group.name + ' meetup!\n';
+  message += '"' + event.name + '" is on ' + eventTime + '\n';
   message += event.event_url;
   return message;
 }

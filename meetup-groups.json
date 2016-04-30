@@ -1,42 +1,39 @@
-[
-  {
+{
+  "17778422": {
     "name": "JS Oxford",
-    "id": "17778422",
+    "slack_channel": "#jsoxford",
     "aliases": ["javascript", "js"]
   },
-  {
+  "12345482": {
     "name": "UX Oxford",
-    "id": "12345482",
+    "slack_channel": "#uxui",
     "aliases": ["ux"]
   },
-  {
+  "18829161": {
     "name": "PHP Oxford",
-    "id": "18829161",
     "aliases": ["php"]
   },
-  {
+  "18789928": {
     "name": "Docker Oxford",
-    "id": "18789928",
+    "slack_channel": "#docker",
     "aliases": ["docker"]
   },
-  {
+  "18617250": {
     "name": "OxRUG",
-    "id": "18617250",
+    "slack_channel": "#ruby",
     "aliases": ["ruby", "rb", "rug"]
   },
-  {
+  "1722581": {
     "name": "Oxford Python",
-    "id": "1722581",
+    "slack_channel": "#python",
     "aliases": ["py"]
   },
-  {
+  "19558444": {
     "name": "Doxford",
-    "id": "19558444",
     "aliases": ["dox", "devop"]
   },
-  {
+  "18888248": {
     "name": "Optimise Oxford",
-    "id": "18888248",
     "aliases": ["optim"]
   }
-]
+}
