@@ -11,6 +11,7 @@
   },
   "18829161": {
     "name": "PHP Oxford",
+    "slack_channel": "#php",
     "aliases": ["php"]
   },
   "18789928": {
@@ -30,6 +31,7 @@
   },
   "19558444": {
     "name": "Doxford",
+    "slack_channel": "#devopsoxford",
     "aliases": ["dox", "devop"]
   },
   "18888248": {
