@@ -32,7 +32,7 @@ module.exports = function (robot) {
     var meetupURL = createMeetupUrl(meetupGroupId, API_KEY);
     var groupName = '';
     if (knownGroup) {
-      groupName = groups[meetupGroupId] + ' ';
+      groupName = groups[meetupGroupId].name + ' ';
     }
 
     console.log('Room: ' + room);
