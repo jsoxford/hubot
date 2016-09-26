@@ -41,5 +41,10 @@
   "20373353": {
     "name": "OX:Agile",
     "aliases": ["agile"]
+  },
+  "19781403": {
+    "name": "Oxford Hackspace",
+    "slack_channel": "#hacks",
+    "aliases": ["hack"]
   }
 }
