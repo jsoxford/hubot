@@ -44,7 +44,6 @@
   },
   "19781403": {
     "name": "Oxford Hackspace",
-    "slack_channel": "#hacks",
     "aliases": ["hack"]
   }
 }
