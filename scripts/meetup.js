@@ -32,9 +32,9 @@ module.exports = function (robot) {
     }
     var meetupURL = createMeetupUrl(meetupGroupId, API_KEY);
 
-    console.log('Room: ' + room);
-    console.log('Community: ' + community);
-    console.log('MeetupURL: ' + meetupURL);
+    console.log(`Room: ${room}`);
+    console.log(`Community: ${community}`);
+    console.log(`MeetupURL: ${meetupURL}`);
 
     robot.http(meetupURL).get()(function (err, res, body) {
       if (err) console.log(err);
@@ -44,7 +44,7 @@ module.exports = function (robot) {
         msg.send(responseForEvent(results[0], groupName, knownGroup));
       } else {
         groupName = knownGroup ? groups[meetupGroupId].name + ' ' : '';
-        msg.send("No upcoming " + groupName + "events planned");
+        msg.send(`No upcoming ${groupName}events planned`);
       }
     });
   }
@@ -59,17 +59,17 @@ function responseForEvent(event, groupName, knownGroup) {
   var eventName = event.name;
   var message;
   if (knownGroup) {
-    message = 'The next ' + groupName + ' meetup is ';
+    message = `The next ${groupName} meetup is `;
   } else {
-    message = 'The next meetup is by *' + groupName + '*, ';
+    message = `The next meetup is by *${groupName}*, `;
   }
-  message += '"*' + eventName + '*" on *' + eventTime + '*. ';
+  message += `"*${eventName}*" on *${eventTime}*. `;
   if (event.venue && event.venue.name) {
-    message += 'It\'s at *' + event.venue.name + '*. ';
+    message += `It's at *${event.venue.name}*. `;
   }
   if (event.yes_rsvp_count) {
     if (event.rsvp_limit && event.rsvp_limit - event.yes_rsvp_count <= 10) {
-      message += 'There are ' + (event.rsvp_limit - event.yes_rsvp_count) + ' places left. ';
+      message += `There are ${event.rsvp_limit - event.yes_rsvp_count} places left. `;
     }
   }
   message += '\n' + eventUrl;
@@ -90,5 +90,5 @@ function phraseToId(phrase, groups) {
 }
 
 function createMeetupUrl(groupIds, API_KEY) {
-  return "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=" + groupIds + "&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
+  return `https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=${groupIds}&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=${API_KEY}`;
 }
