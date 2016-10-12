@@ -15,7 +15,7 @@ var moment = require('moment-timezone');
 moment.locale('en-gb');
 
 module.exports = function (robot) {
-  var result;
+  var results;
   var API_KEY = process.env.MEETUP_API_KEY;
   var groups = require('../meetup-groups.json');
   var allGroupIds = Object.keys(groups).join('%2C');
@@ -25,15 +25,12 @@ module.exports = function (robot) {
     var community = msg.match[1].toLowerCase();
     var meetupGroupId = phraseToId(community, groups) || phraseToId(room, groups);
     var knownGroup = true;
+    var groupName;
     if (!meetupGroupId) {
       knownGroup = false;
       meetupGroupId = allGroupIds;
     }
     var meetupURL = createMeetupUrl(meetupGroupId, API_KEY);
-    var groupName = '';
-    if (knownGroup) {
-      groupName = groups[meetupGroupId].name + ' ';
-    }
 
     console.log('Room: ' + room);
     console.log('Community: ' + community);
@@ -41,10 +38,12 @@ module.exports = function (robot) {
 
     robot.http(meetupURL).get()(function (err, res, body) {
       if (err) console.log(err);
-      result = JSON.parse(body).results;
-      if (result && result.length > 0) {
-        msg.send(responseForEvent(result[0], knownGroup));
+      results = JSON.parse(body).results;
+      if (results && results.length > 0) {
+        groupName = groups[results[0].group.id].name;
+        msg.send(responseForEvent(results[0], groupName, knownGroup));
       } else {
+        groupName = knownGroup ? groups[meetupGroupId].name + ' ' : '';
         msg.send("No upcoming " + groupName + "events planned");
       }
     });
@@ -54,11 +53,10 @@ module.exports = function (robot) {
   robot.respond(/(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, processMessage);
 }
 
-function responseForEvent(event, knownGroup) {
+function responseForEvent(event, groupName, knownGroup) {
   var eventUrl = event.event_url;
   var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM [at] h:mma');
   var eventName = event.name;
-  var groupName = event.group.name;
   var message;
   if (knownGroup) {
     message = 'The next ' + groupName + ' meetup is ';
