@@ -15,7 +15,7 @@ module.exports = function(robot) {
   var groups = require('../meetup-groups.json');
   var allGroupIds = Object.keys(groups).join('%2C');
 
-  var meetupURL = "https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=" + allGroupIds + "&only=created%2Ctime%2Cevent_url%2Cname%2Cdescription%2Cyes_rsvp_count%2Crsvp_limit%2Cgroup&photo-host=secure&page=20&fields=&order=time&status=upcoming&desc=false&key=" + API_KEY;
+  var meetupURL = `https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=${allGroupIds}&only=created%2Ctime%2Cevent_url%2Cname%2Cdescription%2Cyes_rsvp_count%2Crsvp_limit%2Cgroup&photo-host=secure&page=20&fields=&order=time&status=upcoming&desc=false&key=${API_KEY}`;
   var eventsRoom = "#events";
   var result;
 
@@ -32,7 +32,7 @@ module.exports = function(robot) {
         result.forEach(function(meetup){
           var created = new Date(meetup.created);
           if(created > robot.brain.get("lastcheck")){
-            var announcement = generateAnnouncement(meetup);
+            var announcement = generateAnnouncement(meetup, groups);
             robot.messageRoom(eventsRoom, announcement);
             if (groups[meetup.group.id].slack_channel) {
               robot.messageRoom(groups[meetup.group.id].slack_channel, announcement);
@@ -47,10 +47,9 @@ module.exports = function(robot) {
 
 }
 
-function generateAnnouncement(event) {
+function generateAnnouncement(event, groups) {
   var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM [at] h:mma');
-  var message = ':loudspeaker: New ' + event.group.name + ' meetup!\n';
-  message += '"' + event.name + '" is on ' + eventTime + '\n';
-  message += event.event_url;
-  return message;
+  return `:loudspeaker: New ${groups[event.group.id].name} meetup!
+"${event.name}" is on ${eventTime}
+${event.event_url}`
 }
