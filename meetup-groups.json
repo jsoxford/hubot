@@ -45,5 +45,9 @@
   "19781403": {
     "name": "Oxford Hackspace",
     "aliases": ["hack"]
+  },
+  "19683994": {
+    "name": "marlow[dev]",
+    "aliases": ["marlow", "marlow dev"]
   }
 }
