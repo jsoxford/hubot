@@ -7,6 +7,7 @@
 // Configuration:
 //   None
 
+var emoji = require('../lib/digitaloxfordemoji');
 var moment = require('moment-timezone');
 moment.locale('en-gb');
 
