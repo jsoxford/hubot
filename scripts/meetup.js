@@ -12,6 +12,7 @@
 //   When's the next [group] event? - returns the next Meetup event for a given group e.g. "When's the next JSOxford meetup?"
 
 var moment = require('moment-timezone');
+var emoji = require('../lib/digitaloxfordemoji');
 moment.locale('en-gb');
 
 module.exports = function (robot) {
@@ -44,7 +45,7 @@ module.exports = function (robot) {
         msg.send(responseForEvent(results[0], groupName, knownGroup));
       } else {
         groupName = knownGroup ? groups[meetupGroupId].name + ' ' : '';
-        msg.send(`No upcoming ${groupName}events planned`);
+        msg.send(`No upcoming ${groupName}events planned ${emoji('sad')}`);
       }
     });
   }
