@@ -49,5 +49,10 @@
   "19683994": {
     "name": "marlow[dev]",
     "aliases": ["marlow", "marlow dev"]
+  },
+  "20743545": {
+    "name": ".NET Oxford",
+    "slack_channel": "#dotnetoxford",
+    "aliases": ["dotnet", "dot net", ".net"]
   }
 }
