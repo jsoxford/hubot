@@ -50,31 +50,55 @@ module.exports = function (robot) {
     });
   }
 
+  function meetupInfo(msg) {
+    var eventId = msg.match[1];
+    var meetupInfoUrl = createMeetupInfoUrl(eventId, API_KEY);
+    robot.http(meetupInfoUrl).get()(function (err, res, body) {
+      if (err) console.log(err);
+      var results = JSON.parse(body).results;
+      if (results && results.length > 0) {
+        msg.send(meetupInfoResponse(results[0]));
+      } else {
+        msg.send('That event doesn\'t exist.');
+      }
+    });
+  }
+
   robot.hear(/^(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, processMessage);
   robot.respond(/(?:when|what)(?:s|'s| is) the next (.*)(?:meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, processMessage);
+  robot.hear(/meetup\.com\/[^\/]+\/events\/(\d+)/i, meetupInfo);
 }
+
 
 function responseForEvent(event, groupName, knownGroup) {
   var eventUrl = event.event_url;
-  var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM [at] h:mma');
-  var eventName = event.name;
   var message;
   if (knownGroup) {
     message = `The next ${groupName} meetup is `;
   } else {
     message = `The next meetup is by *${groupName}*, `;
   }
-  message += `"*${eventName}*" on *${eventTime}*. `;
+  message += eventDetails(event);
+  message += '\n' + eventUrl;
+  return message;
+}
+
+function meetupInfoResponse(event) {
+  return `That event is ${eventDetails(event)}`;
+}
+
+function eventDetails(event) {
+  var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM [at] h:mma');
+  output = `"${event.name}" on ${eventTime}. `;
   if (event.venue && event.venue.name) {
-    message += `It's at *${event.venue.name}*. `;
+    output += `It's at ${event.venue.name}. `;
   }
   if (event.yes_rsvp_count) {
     if (event.rsvp_limit && event.rsvp_limit - event.yes_rsvp_count <= 10) {
-      message += `There are ${event.rsvp_limit - event.yes_rsvp_count} places left. `;
+      output += `There are ${event.rsvp_limit - event.yes_rsvp_count} places left. `;
     }
   }
-  message += '\n' + eventUrl;
-  return message;
+  return output;
 }
 
 function phraseToId(phrase, groups) {
@@ -92,4 +116,8 @@ function phraseToId(phrase, groups) {
 
 function createMeetupUrl(groupIds, API_KEY) {
   return `https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=${groupIds}&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=${API_KEY}`;
+}
+
+function createMeetupInfoUrl(eventId, API_KEY) {
+  return `https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&event_id=${eventId}&page=500&fields=&order=time&desc=false&status=upcoming&key=${API_KEY}`;
 }
