@@ -53,5 +53,5 @@ function generateAnnouncement(event, groups) {
   return `${emoji('announce')} New ${groups[event.group.id].name} meetup!
 "${event.name}" is on ${eventTime}
 ${event.event_url}
-Find a buddy to go with in #meetup-buddies!`
+Find a buddy to go with in #meetup-buddies`
 }
