@@ -83,17 +83,21 @@ function responseForEvent(event, groupName, knownGroup) {
   return message;
 }
 
+function isWas(event) {
+  return event.status==="past" ? 'was' : 'is';
+}
+
 function meetupInfoResponse(event) {
-  return `That event is ${eventDetails(event)}`;
+  return `That event ${isWas(event)} ${eventDetails(event)}`;
 }
 
 function eventDetails(event) {
-  var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM [at] h:mma');
+  var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM YYYY [at] h:mma');
   output = `"${event.name}" on ${eventTime}. `;
   if (event.venue && event.venue.name) {
-    output += `It's at ${event.venue.name}. `;
+    output += `It ${isWas(event)} at ${event.venue.name}. `;
   }
-  if (event.yes_rsvp_count) {
+  if (event.yes_rsvp_count && event.status === "upcoming") {
     if (event.rsvp_limit && event.rsvp_limit - event.yes_rsvp_count <= 10) {
       output += `There are ${event.rsvp_limit - event.yes_rsvp_count} places left. `;
     }
