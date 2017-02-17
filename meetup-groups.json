@@ -54,5 +54,10 @@
     "name": ".NET Oxford",
     "slack_channel": "#dotnetoxford",
     "aliases": ["dotnet", "dot net", ".net"]
+  },
+  "20378698": {
+    "name": "Oxford VR Crowd",
+    "slack_channel": "#vr",
+    "aliases": ["vr", "virtual reality"]
   }
 }
