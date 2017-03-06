@@ -59,5 +59,9 @@
     "name": "Oxford VR Crowd",
     "slack_channel": "#vr",
     "aliases": ["vr", "virtual reality"]
+  },
+  "21344444": {
+    "name": "DOPM",
+    "aliases": ["pm"]
   }
 }
