@@ -95,7 +95,7 @@ function eventDetails(event) {
   var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM YYYY [at] h:mma');
   output = `"${event.name}" on ${eventTime}. `;
   if (event.venue && event.venue.name) {
-    output += `It ${isWas(event)} at ${event.venue.name}. `;
+    output += `It ${isWas(event)} at ${event.venue.name} (${event.venue.city}). `;
   }
   if (event.yes_rsvp_count && event.status === "upcoming") {
     if (event.rsvp_limit && event.rsvp_limit - event.yes_rsvp_count <= 10) {
