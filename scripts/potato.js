@@ -13,7 +13,7 @@ var potatoes = [
   "https://s-media-cache-ak0.pinimg.com/736x/a8/c4/f9/a8c4f969f44026445b4f9b15b923aee7.jpg",
   "http://40.media.tumblr.com/da674fef86658f9e3b8e556a2a739d5c/tumblr_nsqrgmYHch1tga488o1_500.png",
   "http://3.bp.blogspot.com/-6-2vWxQUbEw/VGrdBkoQ1oI/AAAAAAAAAa8/YHFKpWOthhA/s1600/LOL%2BPOTATO.gif",
-  "https://dl.dropboxusercontent.com/u/13316703/stuff/blackadder.jpg",
+  "http://i.imgur.com/z3xJHRz.jpg",
   "http://www.vitamin-ha.com/wp-content/uploads/2012/12/Vh-150307706283444698_6PqcTpmD_c.jpg",
   "http://wanna-joke.com/wp-content/uploads/2015/04/funny-book-potato-influence.jpg",
   ":potato:"
