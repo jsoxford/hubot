@@ -15,15 +15,16 @@ You can also add the name of the Meetup group that you want to check, e.g. "When
 To add your Meetup group, add its details to [meetup-groups.json](meetup-groups.json). Let's take JS Oxford as an example.
 
 ```json
-{
+"17778422": {
   "name": "JS Oxford",
-  "id": "17778422",
+  "slack_channel": "#jsoxford",
   "aliases": ["javascript", "js"]
 }
 ```
 
+- The ID number is the Meetup group ID, which can be found using the [Meetup API console](https://secure.meetup.com/meetup_api/console/?path=/2/groups). Take the group's name from its Meetup URL and paste it into the `group_urlname` box. Set the `only` field to `id`, then the response will come back with the right ID.
 - `name`: The name of the meetup group.
-- `id`: The Meetup group ID, which can be found using the [Meetup API console](https://secure.meetup.com/meetup_api/console/?path=/2/groups). Take the group's name from its Meetup URL and paste it into the `group_urlname` box. Set the `only` field to `id`, then the response will come back with the right ID.
+- `slack_channel`: Dobot will always post new events into the #events channel in Slack, but if you specify a channel here Dobot will post to that channel as well.
 - `aliases`: An array of keywords that Dobot will look out for, and associate with that group. Dobot will look for JS Oxford events when you ask "When's the next JavaScript meetup?", "When's the next JS meetup?" or "When's the next jsoxford meetup?", since 'jsoxford' contains the substring 'js', matching the second alias.
 
 ![Getting the Meetup Group ID from the API console](readme/images/api_console.png)
