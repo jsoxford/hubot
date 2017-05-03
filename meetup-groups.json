@@ -63,5 +63,10 @@
   "21344444": {
     "name": "DOPM",
     "aliases": ["pm", "DOxPM"]
+  },
+  "18258480": {
+    "name": "GDG Oxford",
+    "slack_channel": "#googledevelopers",
+    "aliases": ["gdg","android"]
   }
 }
