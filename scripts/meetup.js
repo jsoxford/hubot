@@ -65,6 +65,7 @@ module.exports = function (robot) {
   }
 
   robot.hear(/^(?:when|what)(?:.?s| is) the next (.*)(?:meet up|meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, processMessage);
+  robot.hear(/^(?:are|is) there (?:any|a) (.*)(?:meet up|meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, processMessage);
   robot.respond(/(?:when|what)(?:.?s| is) the next (.*)(?:meet up|meetup|event|talk|party|hack|shindig|gathering|meeting|happening)/i, processMessage);
   robot.hear(/meetup\.com\/[^\/]+\/events\/(\d+)/i, meetupInfo);
 }
@@ -107,7 +108,7 @@ function eventDetails(event) {
 
 function phraseToId(phrase, groups) {
   var groupIds = Object.keys(groups);
-  
+
   for (var i = 0; i < groupIds.length; i++) {
     for (var j = 0; j < groups[groupIds[i]].aliases.length; j++) {
       if (phrase.indexOf(groups[groupIds[i]].aliases[j].toLowerCase()) >= 0) {
