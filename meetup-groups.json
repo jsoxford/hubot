@@ -94,5 +94,10 @@
     "name": "Digital Transformation in Reading",
     "slack_channel": "#meetups",
     "aliases": ["digital transformation"]
+  },
+  "7912562": {
+    "name": "Thames Valley Tech Entrepreneurs",
+    "slack_channel": "#meetups",
+    "aliases": ["tech entrepreneurs", "entrepreneurs"]
   }
 }
