@@ -48,7 +48,8 @@
   },
   "19683994": {
     "name": "marlow[dev]",
-    "aliases": ["marlow", "marlow dev"]
+    "aliases": ["marlow", "marlow dev"],
+    "outOfOxford": true
   },
   "20743545": {
     "name": ".NET Oxford",
