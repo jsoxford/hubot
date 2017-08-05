@@ -79,5 +79,10 @@
     "name": "Reading Repair Cafe",
     "slack_channel": "#hackcafe",
     "aliases": ["repair cafe"]
+  },
+  "1648900": {
+    "name": "Social Tech Group",
+    "slack_channel": "#meetups",
+    "aliases": ["social tech"]
   }
 }
