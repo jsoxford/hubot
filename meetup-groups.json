@@ -89,5 +89,10 @@
     "name": "PHP Berkshire",
     "slack_channel": "#php",
     "aliases": ["php reading", "php berks"]
+  },
+  "22582938": {
+    "name": "Digital Transformation in Reading",
+    "slack_channel": "#meetups",
+    "aliases": ["digital transformation"]
   }
 }
