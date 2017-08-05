@@ -57,7 +57,7 @@ function outOfOxford(event) {
 
 function generateAnnouncement(event, groups) {
   var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM [at] h:mma');
-  return `${emoji('announce')} New ${groups[event.group.id].name} meetup!
+  return `${emoji('announce')} New *${groups[event.group.id].name}* meetup!
 "${event.name}" is on ${eventTime} ${outOfOxford(event)}
 ${event.event_url}
 Find a buddy to go with in <#C3T52T9NV|meetup-buddies>`
