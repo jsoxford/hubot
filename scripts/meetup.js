@@ -103,6 +103,9 @@ function eventDetails(event) {
       output += `There are ${event.rsvp_limit - event.yes_rsvp_count} places left. `;
     }
   }
+  if (event.outOfOxford) {
+    output += `This meetup takes place outside of Oxford. `;
+  }
   return output;
 }
 
