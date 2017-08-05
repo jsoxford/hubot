@@ -74,5 +74,10 @@
     "name": "GDG Reading & Thames Valley",
     "slack_channel": "#googledevelopers",
     "aliases": ["gdg reading"]
+  },
+  "18420033": {
+    "name": "Reading Repair Cafe",
+    "slack_channel": "#hackcafe",
+    "aliases": ["repair cafe"]
   }
 }
