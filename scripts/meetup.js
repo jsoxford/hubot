@@ -75,7 +75,7 @@ function responseForEvent(event, groupName, knownGroup) {
   var eventUrl = event.event_url;
   var message;
   if (knownGroup) {
-    message = `The next ${groupName} meetup is `;
+    message = `The next *${groupName}* meetup is `;
   } else {
     message = `The next meetup is by *${groupName}*, `;
   }
