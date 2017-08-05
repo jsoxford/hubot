@@ -50,7 +50,7 @@ module.exports = function(robot) {
 
 function outOfOxford(event) {
   if (event.outOfOxford) {
-    return ' This meetup if outside of Oxford. '
+    return ' This meetup takes place outside of Oxford. '
   }
   return '';
 }
