@@ -84,5 +84,10 @@
     "name": "Social Tech Group",
     "slack_channel": "#meetups",
     "aliases": ["social tech"]
+  },
+  "18473940": {
+    "name": "PHP Berkshire",
+    "slack_channel": "#php",
+    "aliases": ["php reading", "php berks"]
   }
 }
