@@ -69,5 +69,10 @@
     "name": "GDG Oxford",
     "slack_channel": "#googledevelopers",
     "aliases": ["gdg","android"]
+  },
+  "18404940": {
+    "name": "GDG Reading & Thames Valley",
+    "slack_channel": "#googledevelopers",
+    "aliases": ["gdg reading"]
   }
 }
