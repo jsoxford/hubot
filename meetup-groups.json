@@ -114,5 +114,10 @@
     "name": "Reading Agile Valley Meetup",
     "slack_channel": "#meetups",
     "aliases": ["reading agile"]
+  },
+  "13922582": {
+    "name": "Internet of Things Thames Valley",
+    "slack_channel": "#meetups",
+    "aliases": ["internet of things", "iot"]
   }
 }
