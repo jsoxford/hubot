@@ -104,5 +104,10 @@
     "name": "Statup Grind Thames Valley",
     "slack_channel": "#meetups",
     "aliases": ["startup grind", "startup"]
+  },
+  "6465842": {
+    "name": "Reading Tester Gathering",
+    "slack_channel": "#meetups",
+    "aliases": ["tester", "testing"]
   }
 }
