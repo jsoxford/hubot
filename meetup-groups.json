@@ -99,5 +99,10 @@
     "name": "Thames Valley Tech Entrepreneurs",
     "slack_channel": "#meetups",
     "aliases": ["tech entrepreneurs", "entrepreneurs"]
+  },
+  "17754862": {
+    "name": "Statup Grind Thames Valley",
+    "slack_channel": "#meetups",
+    "aliases": ["startup grind", "startup"]
   }
 }
