@@ -109,5 +109,10 @@
     "name": "Reading Tester Gathering",
     "slack_channel": "#meetups",
     "aliases": ["tester", "testing"]
+  },
+  "24289396": {
+    "name": "Reading Agile Valley Meetup",
+    "slack_channel": "#meetups",
+    "aliases": ["reading agile"]
   }
 }
