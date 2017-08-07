@@ -129,5 +129,10 @@
     "name": "DevOps Thames Valley",
     "slack_channel": "#devopsoxford",
     "aliases": ["devops"]
+  },
+  "21523145": {
+    "name": "IET Berkshire",
+    "slack_channel": "#meetups",
+    "aliases": ["iet"]
   }
 }
