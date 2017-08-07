@@ -124,5 +124,10 @@
     "name": "Shopify Meetup Reading",
     "slack_channel": "#meetups",
     "aliases": ["shopify"]
+  },
+  "18325536": {
+    "name": "DevOps Thames Valley",
+    "slack_channel": "#devopsoxford",
+    "aliases": ["devops"]
   }
 }
