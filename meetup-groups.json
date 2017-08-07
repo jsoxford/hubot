@@ -139,5 +139,10 @@
     "name": "Glug Reading",
     "slack_channel": "#meetups",
     "aliases": ["glug"]
+  },
+  "18489526": {
+    "name": "Science in Reading",
+    "slack_channel": "#science",
+    "aliases": ["science"]
   }
 }
