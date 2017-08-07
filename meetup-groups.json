@@ -134,5 +134,10 @@
     "name": "IET Berkshire",
     "slack_channel": "#meetups",
     "aliases": ["iet"]
+  },
+  "19133705": {
+    "name": "Glug Reading",
+    "slack_channel": "#meetups",
+    "aliases": ["glug"]
   }
 }
