@@ -119,5 +119,10 @@
     "name": "Internet of Things Thames Valley",
     "slack_channel": "#meetups",
     "aliases": ["internet of things", "iot"]
+  },
+  "22486503": {
+    "name": "Shopify Meetup Reading",
+    "slack_channel": "#meetups",
+    "aliases": ["shopify"]
   }
 }
