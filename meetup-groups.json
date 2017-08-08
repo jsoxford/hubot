@@ -84,7 +84,6 @@
   },
   "1648900": {
     "name": "Social Tech Group",
-    "slack_channel": "#meetups",
     "aliases": ["social tech"],
     "outOfOxford": true
   },
@@ -96,43 +95,36 @@
   },
   "22582938": {
     "name": "Digital Transformation in Reading",
-    "slack_channel": "#meetups",
     "aliases": ["digital transformation"],
     "outOfOxford": true
   },
   "7912562": {
     "name": "Thames Valley Tech Entrepreneurs",
-    "slack_channel": "#meetups",
     "aliases": ["tech entrepreneurs", "entrepreneurs"],
     "outOfOxford": true
   },
   "17754862": {
     "name": "Statup Grind Thames Valley",
-    "slack_channel": "#meetups",
     "aliases": ["startup grind", "startup"],
     "outOfOxford": true
   },
   "6465842": {
     "name": "Reading Tester Gathering",
-    "slack_channel": "#meetups",
     "aliases": ["tester", "testing"],
     "outOfOxford": true
   },
   "24289396": {
     "name": "Reading Agile Valley Meetup",
-    "slack_channel": "#meetups",
     "aliases": ["reading agile"],
     "outOfOxford": true
   },
   "13922582": {
     "name": "Internet of Things Thames Valley",
-    "slack_channel": "#meetups",
     "aliases": ["internet of things", "iot"],
     "outOfOxford": true
   },
   "22486503": {
     "name": "Shopify Meetup Reading",
-    "slack_channel": "#meetups",
     "aliases": ["shopify"],
     "outOfOxford": true
   },
@@ -144,13 +136,11 @@
   },
   "21523145": {
     "name": "IET Berkshire",
-    "slack_channel": "#meetups",
     "aliases": ["iet"],
     "outOfOxford": true
   },
   "19133705": {
     "name": "Glug Reading",
-    "slack_channel": "#meetups",
     "aliases": ["glug"],
     "outOfOxford": true
   },
