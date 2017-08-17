@@ -112,14 +112,27 @@ function eventDetails(event) {
 function phraseToId(phrase, groups) {
   var groupIds = Object.keys(groups);
 
+  var matchingGroups = [];
+
   for (var i = 0; i < groupIds.length; i++) {
+    // Check for title match
+    if (groups[groupIds[i]].name.toLowerCase() === phrase.toLowerCase().trim()) {
+      return groupIds[i];
+    }
+
+    // Check for match against alias
     for (var j = 0; j < groups[groupIds[i]].aliases.length; j++) {
       if (phrase.indexOf(groups[groupIds[i]].aliases[j].toLowerCase()) >= 0) {
-        return groupIds[i];
+        matchingGroups.push(groupIds[i]);
+        continue;
       }
     }
   }
-  return null;
+  if (matchingGroups.length > 0) {
+    return matchingGroups.join('%2C');
+  } else {
+    return null;
+  }
 }
 
 function createMeetupUrl(groupIds, API_KEY) {
