@@ -128,7 +128,11 @@ function phraseToId(phrase, groups) {
       }
     }
   }
-  return matchingGroups.length ? matchingGroups.join('%2C') : null;
+  if (matchingGroups.length > 0) {
+    return matchingGroups.join('%2C');
+  } else {
+    return null;
+  }
 }
 
 function createMeetupUrl(groupIds, API_KEY) {
