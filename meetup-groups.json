@@ -131,7 +131,7 @@
   "18325536": {
     "name": "DevOps Thames Valley",
     "slack_channel": "#devopsoxford",
-    "aliases": [],
+    "aliases": ["devops"],
     "outOfOxford": true
   },
   "21523145": {
