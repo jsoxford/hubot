@@ -116,15 +116,15 @@ function phraseToId(phrase, groups) {
 
   for (var i = 0; i < groupIds.length; i++) {
     // Check for title match
-    if (groups[groupIds[i]].name.toLowerCase() === phrase.toLowerCase()) {
-      matchingGroups.push(groupIds[i]);
-      continue;
+    if (groups[groupIds[i]].name.toLowerCase() === phrase.toLowerCase().trim()) {
+      return groupIds[i];
     }
 
     // Check for match against alias
     for (var j = 0; j < groups[groupIds[i]].aliases.length; j++) {
       if (phrase.indexOf(groups[groupIds[i]].aliases[j].toLowerCase()) >= 0) {
         matchingGroups.push(groupIds[i]);
+        continue;
       }
     }
   }
