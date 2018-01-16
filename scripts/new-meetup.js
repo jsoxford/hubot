@@ -27,8 +27,17 @@ module.exports = function(robot) {
     console.log("Checking for new meetups");
 
     robot.http(meetupURL).get()(function(err, res, body){
-      if(err) console.log(err);
-      result = JSON.parse(body).results;
+      if(err) {
+        console.log(err);
+        return;
+      }
+
+      try {
+        result = JSON.parse(body).results;
+      } catch(err) {
+        console.log(err);
+        return;
+      }
 
       if(result && result.length > 0){
         result.forEach(function(meetup){
