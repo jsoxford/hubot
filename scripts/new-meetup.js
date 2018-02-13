@@ -45,7 +45,7 @@ module.exports = function(robot) {
           });
 
           // Store the keys of each meetup
-          robot.brain.set('lastResult', result.map(meetup => toKey));
+          robot.brain.set('lastResult', result.map(meetup => toKey(meetup)));
         }
       } catch(err) {
         console.log(err, body);
