@@ -19,9 +19,6 @@ module.exports = function(robot) {
   var meetupURL = `https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=${allGroupIds}&only=created%2Ctime%2Cevent_url%2Cname%2Cdescription%2Cyes_rsvp_count%2Crsvp_limit%2Cgroup&photo-host=secure&page=200&fields=&order=time&status=upcoming&desc=false&key=${API_KEY}`;
 
   var eventsRoom = "#events";
-  var result;
-
-  robot.brain.set("lastcheck",new Date());
 
   interval = setInterval(function(){
     console.log("Checking for new meetups");
@@ -33,29 +30,29 @@ module.exports = function(robot) {
       }
 
       try {
-        result = JSON.parse(body).results;
+        const result = JSON.parse(body).results;
+        if(result && result.length > 0) {
+          const lastResult = robot.brain.get('lastResult') || [];
+          result.forEach(function(meetup){
+            const key = toKey(meetup);
+            if (!lastResult.some(prev => prev === key)) {
+              var announcement = generateAnnouncement(meetup, groups);
+              robot.messageRoom(eventsRoom, announcement);
+              if (groups[meetup.group.id].slack_channel) {
+                robot.messageRoom(groups[meetup.group.id].slack_channel, announcement);
+              }
+            }
+          });
+
+          // Store the keys of each meetup
+          robot.brain.set('lastResult', result.map(meetup => toKey));
+        }
       } catch(err) {
-        console.log(err);
+        console.log(err, body);
         return;
       }
-
-      if(result && result.length > 0){
-        result.forEach(function(meetup){
-          var created = new Date(meetup.created);
-          if(created > robot.brain.get("lastcheck")){
-            var announcement = generateAnnouncement(meetup, groups);
-            robot.messageRoom(eventsRoom, announcement);
-            if (groups[meetup.group.id].slack_channel) {
-              robot.messageRoom(groups[meetup.group.id].slack_channel, announcement);
-            }
-          }
-        });
-      }
-
-      robot.brain.set("lastcheck",new Date());
     });
   }, 1000 * 3600);
-
 }
 
 function outOfOxford(event) {
@@ -71,4 +68,8 @@ function generateAnnouncement(event, groups) {
 "${event.name}" is on ${eventTime} ${outOfOxford(event)}
 ${event.event_url}
 Find a buddy to go with in <#C3T52T9NV|meetup-buddies>`
+}
+
+function toKey(meetup) {
+  return `${meetup.group.id}-${meetup.created}`;
 }
