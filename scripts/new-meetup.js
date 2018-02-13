@@ -16,7 +16,7 @@ module.exports = function(robot) {
   var groups = require('../meetup-groups.json');
   var allGroupIds = Object.keys(groups).join('%2C');
 
-  var meetupURL = `https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=${allGroupIds}&only=created%2Ctime%2Cevent_url%2Cname%2Cdescription%2Cyes_rsvp_count%2Crsvp_limit%2Cgroup&photo-host=secure&page=200&fields=&order=time&status=upcoming&desc=false&key=${API_KEY}`;
+  var meetupURL = `https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=${allGroupIds}&only=id%2Ccreated%2Ctime%2Cevent_url%2Cname%2Cdescription%2Cyes_rsvp_count%2Crsvp_limit%2Cgroup&photo-host=secure&page=200&fields=&order=time&status=upcoming&desc=false&key=${API_KEY}`;
 
   var eventsRoom = "#events";
 
@@ -71,5 +71,5 @@ Find a buddy to go with in <#C3T52T9NV|meetup-buddies>`
 }
 
 function toKey(meetup) {
-  return `${meetup.group.id}-${meetup.created}`;
+  return `${meetup.id}`;
 }
