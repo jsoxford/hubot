@@ -42,7 +42,8 @@ module.exports = function (robot) {
       results = JSON.parse(body).results;
       if (results && results.length > 0) {
         groupName = groups[results[0].group.id].name;
-        msg.send(responseForEvent(results[0], groupName, knownGroup));
+        var outOfOxford = groups[results[0].group.id].outOfOxford;
+        msg.send(responseForEvent(results[0], groupName, knownGroup, outOfOxford));
       } else {
         groupName = knownGroup ? groups[meetupGroupId].name + ' ' : '';
         msg.send(`No upcoming ${groupName}events planned ${emoji('sad')}`);
@@ -71,7 +72,7 @@ module.exports = function (robot) {
 }
 
 
-function responseForEvent(event, groupName, knownGroup) {
+function responseForEvent(event, groupName, knownGroup, outOfOxford) {
   var eventUrl = event.event_url;
   var message;
   if (knownGroup) {
@@ -79,7 +80,7 @@ function responseForEvent(event, groupName, knownGroup) {
   } else {
     message = `The next meetup is by *${groupName}*, `;
   }
-  message += eventDetails(event);
+  message += eventDetails(event, outOfOxford);
   message += '\n' + eventUrl;
   return message;
 }
@@ -92,7 +93,7 @@ function meetupInfoResponse(event) {
   return `That event ${isWas(event)} ${eventDetails(event)}`;
 }
 
-function eventDetails(event) {
+function eventDetails(event, outOfOxford) {
   var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM YYYY [at] h:mma');
   output = `"${event.name}" on ${eventTime}. `;
   if (event.venue && event.venue.name) {
@@ -103,7 +104,7 @@ function eventDetails(event) {
       output += `There are ${event.rsvp_limit - event.yes_rsvp_count} places left. `;
     }
   }
-  if (event.outOfOxford) {
+  if (outOfOxford) {
     output += `This meetup takes place outside of Oxford. `;
   }
   return output;
