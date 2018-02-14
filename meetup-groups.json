@@ -149,5 +149,9 @@
     "slack_channel": "#science",
     "aliases": ["science"],
     "outOfOxford": true
+  },
+  "26159791": {
+    "name": "ProductTank Oxford",
+    "aliases": ["product", "product tank", "product manager", "producttank"]
   }
 }
