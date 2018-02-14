@@ -20,7 +20,7 @@ module.exports = function(robot) {
 
   var eventsRoom = "#events";
 
-  interval = setInterval(function(){
+  const checkForNewMeetup = () => {
     console.log("Checking for new meetups");
 
     robot.http(meetupURL).get()(function(err, res, body){
@@ -32,17 +32,19 @@ module.exports = function(robot) {
       try {
         const result = JSON.parse(body).results;
         if(result && result.length > 0) {
-          const lastResult = robot.brain.get('lastResult') || [];
-          result.forEach(function(meetup){
-            const key = toKey(meetup);
-            if (!lastResult.some(prev => prev === key)) {
-              var announcement = generateAnnouncement(meetup, groups);
-              robot.messageRoom(eventsRoom, announcement);
-              if (groups[meetup.group.id].slack_channel) {
-                robot.messageRoom(groups[meetup.group.id].slack_channel, announcement);
+          const lastResult = robot.brain.get('lastResult');
+          if (lastResult) {
+            result.forEach(function(meetup){
+              const key = toKey(meetup);
+              if (!lastResult.some(prev => prev === key)) {
+                var announcement = generateAnnouncement(meetup, groups);
+                robot.messageRoom(eventsRoom, announcement);
+                if (groups[meetup.group.id].slack_channel) {
+                  robot.messageRoom(groups[meetup.group.id].slack_channel, announcement);
+                }
               }
-            }
-          });
+            });
+          }
 
           // Store the keys of each meetup
           robot.brain.set('lastResult', result.map(meetup => toKey(meetup)));
@@ -52,7 +54,10 @@ module.exports = function(robot) {
         return;
       }
     });
-  }, 1000 * 3600);
+  };
+
+  checkForNewMeetup();
+  setInterval(checkForNewMeetup, 1000 * 3600);
 }
 
 function outOfOxford(event) {
