@@ -76,5 +76,5 @@ Find a buddy to go with in <#C3T52T9NV|meetup-buddies>`
 }
 
 function toKey(meetup) {
-  return `${meetup.id}`;
+  return `${meetup.event_url}`;
 }
