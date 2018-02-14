@@ -59,9 +59,9 @@ module.exports = function(robot) {
   setInterval(checkForNewMeetup, 1000 * 3600);
 }
 
-function outOfOxford(event) {
-  if (event.outOfOxford) {
-    return ' This meetup takes place outside of Oxford. '
+function outOfOxford(group) {
+  if (group.outOfOxford) {
+    return ' This meetup takes place outside of Oxford.'
   }
   return '';
 }
@@ -69,7 +69,7 @@ function outOfOxford(event) {
 function generateAnnouncement(event, groups) {
   var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM [at] h:mma');
   return `${emoji('announce')} New *${groups[event.group.id].name}* meetup!
-"${event.name}" is on ${eventTime} ${outOfOxford(event)}
+"${event.name}" is on ${eventTime}.${outOfOxford(groups[event.group.id])}
 ${event.event_url}
 Find a buddy to go with in <#C3T52T9NV|meetup-buddies>`
 }
