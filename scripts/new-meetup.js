@@ -35,8 +35,7 @@ module.exports = function(robot) {
           const lastResult = robot.brain.get('lastResult');
           if (lastResult) {
             result.forEach(function(meetup){
-              const key = toKey(meetup);
-              if (!lastResult.some(prev => prev === key)) {
+              if (!lastResult.some(prev => prev === meetup.id)) {
                 var announcement = generateAnnouncement(meetup, groups);
                 robot.messageRoom(eventsRoom, announcement);
                 if (groups[meetup.group.id].slack_channel) {
@@ -47,7 +46,7 @@ module.exports = function(robot) {
           }
 
           // Store the keys of each meetup
-          robot.brain.set('lastResult', result.map(meetup => toKey(meetup)));
+          robot.brain.set('lastResult', result.map(meetup => meetup.id));
         }
       } catch(err) {
         console.log(err, body);
@@ -73,8 +72,4 @@ function generateAnnouncement(event, groups) {
 "${event.name}" is on ${eventTime} ${outOfOxford(event)}
 ${event.event_url}
 Find a buddy to go with in <#C3T52T9NV|meetup-buddies>`
-}
-
-function toKey(meetup) {
-  return `${meetup.event_url}`;
 }
