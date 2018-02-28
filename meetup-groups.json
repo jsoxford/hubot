@@ -153,5 +153,13 @@
   "26159791": {
     "name": "ProductTank Oxford",
     "aliases": ["product", "product tank", "product manager", "producttank"]
+  },
+  "22044115": {
+    "name": "Oxford Video Games Meetup",
+    "aliases": ["video game", "game"]
+  },
+  "22044303": {
+    "name": "Java Oxford Meetup",
+    "aliases": ["java", "jox"]
   }
 }
