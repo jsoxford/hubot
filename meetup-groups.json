@@ -114,7 +114,7 @@
     "outOfOxford": true
   },
   "24289396": {
-    "name": "Reading Agile Valley Meetup",
+    "name": "Reading Agile Valley",
     "aliases": ["reading agile"],
     "outOfOxford": true
   },
@@ -155,11 +155,11 @@
     "aliases": ["product", "product tank", "product manager", "producttank"]
   },
   "22044115": {
-    "name": "Oxford Video Games Meetup",
+    "name": "Oxford Video Games",
     "aliases": ["video game", "game"]
   },
   "22044303": {
-    "name": "Java Oxford Meetup",
+    "name": "Java Oxford",
     "aliases": ["java", "jox"]
   }
 }
