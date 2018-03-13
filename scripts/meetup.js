@@ -120,7 +120,3 @@ function phraseToId(phrase, groups) {
 function createMeetupUrl(groupIds, API_KEY) {
   return `https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&group_id=${groupIds}&only=venue%2Cgroup%2Ctime%2Cevent_url%2Cname%2Cyes_rsvp_count%2Crsvp_limit&photo-host=secure&page=1&fields=&order=time&status=upcoming&desc=false&key=${API_KEY}`;
 }
-
-function createMeetupInfoUrl(eventId, API_KEY) {
-  return `https://api.meetup.com/2/events?offset=0&format=json&limited_events=False&event_id=${eventId}&page=500&fields=&order=time&desc=false&status=upcoming&key=${API_KEY}`;
-}
