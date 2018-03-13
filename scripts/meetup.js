@@ -51,24 +51,9 @@ module.exports = function (robot) {
     });
   }
 
-  function meetupInfo(msg) {
-    var eventId = msg.match[1];
-    var meetupInfoUrl = createMeetupInfoUrl(eventId, API_KEY);
-    robot.http(meetupInfoUrl).get()(function (err, res, body) {
-      if (err) console.log(err);
-      var results = JSON.parse(body).results;
-      if (results && results.length > 0) {
-        msg.send(meetupInfoResponse(results[0]));
-      } else {
-        msg.send('That event doesn\'t exist.');
-      }
-    });
-  }
-
   robot.hear(/^(?:when|what)(?:.?s| is) the next (.*)(?:meet up|meetup|event|talk|party|hack|shindig|gathering|meeting|happening)?/i, processMessage);
   robot.hear(/^(?:are|is) there (?:any|a) (.*)(?:meet up|meetup|event|talk|party|hack|shindig|gathering|meeting|happening)?/i, processMessage);
   robot.respond(/(?:when|what)(?:.?s| is) the next (.*)(?:meet up|meetup|event|talk|party|hack|shindig|gathering|meeting|happening)?/i, processMessage);
-  robot.hear(/meetup\.com\/[^\/]+\/events\/(\d+)/i, meetupInfo);
 }
 
 
@@ -87,10 +72,6 @@ function responseForEvent(event, groupName, knownGroup, outOfOxford) {
 
 function isWas(event) {
   return event.status==="past" ? 'was' : 'is';
-}
-
-function meetupInfoResponse(event) {
-  return `That event ${isWas(event)} ${eventDetails(event)}`;
 }
 
 function eventDetails(event, outOfOxford) {
