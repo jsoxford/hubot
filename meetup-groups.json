@@ -172,6 +172,7 @@
   },
   "29004445": {
     "name": "Design Thinking Oxford",
+    "slack_channel": "#design-thinking",
     "aliases": ["design", "design thinking"]
   }
 }
