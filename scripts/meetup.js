@@ -21,13 +21,17 @@ module.exports = function (robot) {
   var groups = require('../meetup-groups.json');
   var allGroupIds = Object.keys(groups).join('%2C');
 
-  function processMessage(msg) {
+  function processMessage(fallbackToAll, msg) {
     var room = msg.message.room.toLowerCase();
     var community = msg.match[1].toLowerCase();
     var meetupGroupId = phraseToId(community, groups) || phraseToId(room, groups);
     var knownGroup = true;
     var groupName;
     if (!meetupGroupId) {
+      if (!fallbackToAll) {
+        return;
+      }
+
       knownGroup = false;
       meetupGroupId = allGroupIds;
     }
@@ -51,9 +55,14 @@ module.exports = function (robot) {
     });
   }
 
-  robot.hear(/^(?:when|what)(?:.?s| is) the next (.*)(?:meet up|meetup|event|talk|party|hack|shindig|gathering|meeting|happening)?/i, processMessage);
-  robot.hear(/^(?:are|is) there (?:any|a) (.*)(?:meet up|meetup|event|talk|party|hack|shindig|gathering|meeting|happening)?/i, processMessage);
-  robot.respond(/(?:when|what)(?:.?s| is) the next (.*)(?:meet up|meetup|event|talk|party|hack|shindig|gathering|meeting|happening)?/i, processMessage);
+  const processMessageWithFallback = processMessage.bind(null, true);
+  const processMessageWithoutFallback = processMessage.bind(null, false);
+
+  // Hubot can `hear` messages said in a room or `respond` to messages directly addressed at it.
+  robot.hear(/^(?:when|what)(?:.?s| is) the next (.*)(?:meet up|meetup|event|talk|party|hack|shindig|gathering|meeting|happening)?/i, processMessageWithoutFallback);
+  robot.hear(/^(?:are|is) there (?:any|a) (.*)(?:meet up|meetup|event|talk|party|hack|shindig|gathering|meeting|happening)?/i, processMessageWithoutFallback);
+
+  robot.respond(/(?:when|what)(?:.?s| is) the next (.*)(?:meet up|meetup|event|talk|party|hack|shindig|gathering|meeting|happening)?/i, processMessageWithFallback);
 }
 
 
