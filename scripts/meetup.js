@@ -27,6 +27,9 @@ module.exports = function (robot) {
     var meetupGroupId = phraseToId(community, groups) || phraseToId(room, groups);
     var knownGroup = true;
     var groupName;
+
+    console.log(`Trigger: "${msg.message}"`);
+
     if (!meetupGroupId) {
       if (!fallbackToAll) {
         return;
