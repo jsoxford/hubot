@@ -83,7 +83,8 @@ function outOfOxford(group) {
 }
 
 function generateAnnouncement(event, groups) {
-  var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM [at] h:mma');
+  var differentYear = moment(event.time).year() !== moment().year();
+  var eventTime = moment(event.time).tz('Europe/London').format(`dddd Do MMMM ${differentYear ? 'YYYY ' : ''}[at] h:mma`);
   return `${emoji('announce')} Next *${groups[event.group.id].name}* meetup:
 "${event.name}" is on ${eventTime}.${outOfOxford(groups[event.group.id])}
 ${event.event_url}

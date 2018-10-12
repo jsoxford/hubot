@@ -87,7 +87,8 @@ function isWas(event) {
 }
 
 function eventDetails(event, outOfOxford) {
-  var eventTime = moment(event.time).tz('Europe/London').format('dddd Do MMMM YYYY [at] h:mma');
+  var differentYear = moment(event.time).year() !== moment().year();
+  var eventTime = moment(event.time).tz('Europe/London').format(`dddd Do MMMM ${differentYear ? 'YYYY ' : ''}[at] h:mma`);
   output = `"${event.name}" on ${eventTime}. `;
   if (event.venue && event.venue.name) {
     output += `It ${isWas(event)} at ${event.venue.name} (${event.venue.city}). `;
