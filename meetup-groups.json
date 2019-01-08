@@ -174,5 +174,10 @@
     "name": "Design Thinking Oxford",
     "slack_channel": "#design-thinking",
     "aliases": ["design", "design thinking"]
+  },
+  "257896257": {
+    "name": "GDG Oxford",
+    "slack_channel": "#googledevelopers",
+    "aliases": ["google"]
   }
 }
